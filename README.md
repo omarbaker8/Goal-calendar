@@ -1,4 +1,4 @@
-# Everyday Goal Calendar Flask App
+# Vibe Coded Everyday Goal Calendar Flask App
 
 ## Overview
 A beautiful hexagonal goal calendar built with Flask and Firebase that allows users to track their daily achievements with cloud sync and multiple themes.
