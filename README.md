@@ -52,10 +52,13 @@ cp .env.example .env
 
 ### 5. Firebase Files Setup
 
-**Spark free plan [link]console.firebase.google.com[link] **
+**Spark free plan [console.firebase.google.com](https://console.firebase.google.com)**
+
+
 1. Download your Firebase service account key as `firebase-config.json`
 2. Update `static/firebase-auth.js` with your Firebase web config
 3. Place both files in the project root
+
 
 ### 6. Run the Application
 ```bash
