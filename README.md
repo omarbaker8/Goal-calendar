@@ -1,4 +1,4 @@
-# Goal Calendar Flask App
+# Everyday Goal Calendar Flask App
 
 ## Overview
 A beautiful hexagonal goal calendar built with Flask and Firebase that allows users to track their daily achievements with cloud sync and multiple themes.
@@ -6,7 +6,6 @@ A beautiful hexagonal goal calendar built with Flask and Firebase that allows us
 ## Demo
 ![Goal Calendar Demo](demo.png)
 
-*Beautiful hexagonal calendar interface with multiple themes and cloud sync capabilities*
 
 ## Features
 - 🔐 **Firebase Authentication** - Secure Google Sign-in
@@ -81,26 +80,9 @@ Calendar Goal/
     └── calendar.js           # Calendar functionality
 ```
 
-## API Endpoints
-- `GET /` - Main calendar (requires authentication)
-- `GET /login` - Login page
-- `GET /logout` - Logout and clear session
-- `POST /api/verify_token` - Verify Firebase token
-- `GET /api/load_progress` - Load user progress
-- `POST /api/save_progress` - Save user progress
 
 ## Deployment
 
-### Heroku
-1. Create Heroku app: `heroku create your-app-name`
-2. Set environment variables:
-   ```bash
-   heroku config:set SECRET_KEY=your-secret-key
-   ```
-3. Add Firebase config as environment variable or use Heroku's file system
-4. Deploy: `git push heroku main`
-
-### Other Platforms
 - Ensure all environment variables are set
 - Upload `firebase-config.json` securely
 - Use `gunicorn` for production server
@@ -126,11 +108,6 @@ Calendar Goal/
 }
 ```
 
-## Troubleshooting
-1. **Authentication Issues**: Check Firebase configuration in both server and client files
-2. **Database Errors**: Verify Firestore rules and service account permissions
-3. **Theme Not Saving**: Check network requests in browser developer tools
-4. **Module Import Errors**: Ensure virtual environment is activated and dependencies installed
 
 ## License
 This project is open source. Feel free to modify and use as needed.
