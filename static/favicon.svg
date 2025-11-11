@@ -1,0 +1,6 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hexagonal shape with calendar theme -->
+  <polygon points="16,2 26,8 26,20 16,26 6,20 6,8" fill="#d4af37" stroke="#574627" stroke-width="1"/>
+  <polygon points="16,4 24,9 24,19 16,24 8,19 8,9" fill="#574627"/>
+  <text x="16" y="19" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#d4af37">G</text>
+</svg>
