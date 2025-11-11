@@ -98,20 +98,6 @@ Calendar Goal/
 - Enable Firebase security rules in production
 - Use HTTPS in production
 
-## Firestore Data Structure
-```javascript
-// users/{userId}
-{
-  "email": "user@example.com",
-  "progress": {
-    "0-1": true,    // Month 0 (Jan), Day 1 completed
-    "0-15": true,   // Month 0 (Jan), Day 15 completed
-    "1-5": true     // Month 1 (Feb), Day 5 completed
-  },
-  "theme": "#111827",
-  "last_updated": "2023-12-01T12:00:00Z"
-}
-```
 
 
 ## License
