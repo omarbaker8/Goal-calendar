@@ -52,7 +52,7 @@ cp .env.example .env
 
 ### 5. Firebase Files Setup
 
-**Spark free plan console.firebase.google.com **
+**Spark free plan [link]console.firebase.google.com[link] **
 1. Download your Firebase service account key as `firebase-config.json`
 2. Update `static/firebase-auth.js` with your Firebase web config
 3. Place both files in the project root
@@ -63,7 +63,7 @@ cp .env.example .env
 python app.py
 
 # Production (with Gunicorn)
-gunicorn -w 4 -b 0.0.0.0:5000 app:app
+gunicorn -w 4 -b 0.0.0.0:1350 app:app
 ```
 
 ## Project Structure
