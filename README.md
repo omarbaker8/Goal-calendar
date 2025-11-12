@@ -51,9 +51,14 @@ cp .env.example .env
 ```
 
 ### 5. Firebase Files Setup
+
+**Spark free plan [console.firebase.google.com](https://console.firebase.google.com)**
+
+
 1. Download your Firebase service account key as `firebase-config.json`
 2. Update `static/firebase-auth.js` with your Firebase web config
 3. Place both files in the project root
+
 
 ### 6. Run the Application
 ```bash
@@ -61,7 +66,7 @@ cp .env.example .env
 python app.py
 
 # Production (with Gunicorn)
-gunicorn -w 4 -b 0.0.0.0:5000 app:app
+gunicorn -w 4 -b 0.0.0.0:1350 app:app
 ```
 
 ## Project Structure
@@ -93,20 +98,6 @@ Calendar Goal/
 - Enable Firebase security rules in production
 - Use HTTPS in production
 
-## Firestore Data Structure
-```javascript
-// users/{userId}
-{
-  "email": "user@example.com",
-  "progress": {
-    "0-1": true,    // Month 0 (Jan), Day 1 completed
-    "0-15": true,   // Month 0 (Jan), Day 15 completed
-    "1-5": true     // Month 1 (Feb), Day 5 completed
-  },
-  "theme": "#111827",
-  "last_updated": "2023-12-01T12:00:00Z"
-}
-```
 
 
 ## License
