@@ -51,33 +51,35 @@
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             transform: scale(0.9); 
             transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+            pointer-events: none;
         }
 
         .day-hexagon.lit {
-            background-color: #ffd700;
-            box-shadow: 0 0 8px #ffd700, 0 0 12px #ffd700;
+            background-color: #ffd700 !important;
+            box-shadow: 0 0 8px #ffd700, 0 0 12px #ffd700 !important;
             font-weight: 700;
         }
         .day-hexagon.lit::before {
-            background-color: #ffd700;
-            color: #333;
+            background-color: #ffd700 !important;
+            color: #333 !important;
         }
 
         .day-hexagon:not(.lit):not(.invalid) {
-            background-color: #856a3d;
+            background-color: #856a3d !important;
+            box-shadow: none !important;
             cursor: pointer;
         }
         .day-hexagon:not(.lit):not(.invalid)::before {
-            background-color: #574627;
-            color: #d4af37;
+            background-color: #574627 !important;
+            color: #d4af37 !important;
         }
         
         .day-hexagon:not(.lit):not(.invalid):hover {
-            background-color: #d4af37;
+            background-color: #d4af37 !important;
         }
         .day-hexagon:not(.lit):not(.invalid):hover::before {
-            background-color: #856a3d;
-            color: #f0e6d2;
+            background-color: #856a3d !important;
+            color: #f0e6d2 !important;
             transform: scale(0.92);
         }
 

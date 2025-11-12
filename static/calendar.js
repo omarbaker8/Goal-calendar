@@ -19,11 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
      * Loads user data from server
      */
     function loadUserData() {
+        console.log('Loading user data from server...');
         fetch('/api/load_progress')
             .then(response => response.json())
             .then(data => {
+                console.log('Loaded data from server:', data);
                 if (data.success) {
+                    console.log('Previous currentState:', JSON.stringify(currentState));
                     currentState = data.progress || {};
+                    console.log('New currentState after load:', JSON.stringify(currentState));
                     currentTheme = data.theme || '#111827';
                     applyTheme(getThemeByColor(currentTheme));
                     initCalendar();
@@ -55,20 +59,27 @@ document.addEventListener('DOMContentLoaded', () => {
      * Saves current state and theme to server
      */
     function saveUserData() {
+        const payload = {
+            progress: currentState,
+            theme: currentTheme
+        };
+        
+        console.log('Sending to server:', JSON.stringify(payload, null, 2));
+        
         fetch('/api/save_progress', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                progress: currentState,
-                theme: currentTheme
-            })
+            body: JSON.stringify(payload)
         })
         .then(response => response.json())
         .then(data => {
+            console.log('Server response:', data);
             if (!data.success) {
                 console.error('Error saving user data:', data.error);
+            } else {
+                console.log('Successfully saved to server');
             }
         })
         .catch(error => {
@@ -240,23 +251,50 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {Event} e - The click event
      */
     function handleDayClick(e) {
-        const target = e.target.closest('.day-hexagon');
+        // Prevent event bubbling
+        e.stopPropagation();
+        
+        // Find the hexagon element (could be the target itself or a parent)
+        let target = e.target;
+        
+        // If clicked on the pseudo-element area, find the actual hexagon
+        if (!target.classList.contains('day-hexagon')) {
+            target = target.closest('.day-hexagon');
+        }
 
+        // Validate target
         if (!target || target.classList.contains('invalid')) {
             return;
         }
 
+        // Ensure we have a valid dayId
+        const dayId = target.dataset.id;
+        if (!dayId) {
+            return;
+        }
+
+        // Get the current state before toggling
+        const wasLit = target.classList.contains('lit');
+        console.log(`Day ${dayId} was ${wasLit ? 'lit' : 'unlit'} before toggle`);
+
         // Toggle the "lit" class
         target.classList.toggle('lit');
 
-        // Update the state
-        const dayId = target.dataset.id;
+        // Check state after toggle
+        const isNowLit = target.classList.contains('lit');
+        console.log(`Day ${dayId} is now ${isNowLit ? 'lit' : 'unlit'} after toggle`);
 
+        // Update the state based on the new state after toggling
         if (target.classList.contains('lit')) {
             currentState[dayId] = true;
+            console.log(`Setting currentState[${dayId}] = true`);
         } else {
             delete currentState[dayId];
+            console.log(`Deleting currentState[${dayId}]`);
         }
+
+        console.log('Current state object:', JSON.stringify(currentState));
+        console.log('About to save user data...');
 
         // Save to server
         saveUserData();

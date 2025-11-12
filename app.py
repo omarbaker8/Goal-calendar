@@ -66,17 +66,27 @@ def save_progress():
         progress_data = request.json.get('progress', {})
         theme = request.json.get('theme', '#111827')
         
+        print(f"DEBUG: Saving progress for user {user_id}")
+        print(f"DEBUG: Progress data received: {progress_data}")
+        print(f"DEBUG: Theme: {theme}")
+        
         # Save to Firestore
         user_doc = db.collection('users').document(user_id)
-        user_doc.set({
+        
+        # Update specific fields while preserving others
+        # The key insight: we need to replace the entire 'progress' field, not merge it
+        # so that deleted entries (toggled off days) are actually removed
+        user_doc.update({
             'progress': progress_data,
             'theme': theme,
-            'email': session.get('user_email', ''),
             'last_updated': firestore.SERVER_TIMESTAMP
-        }, merge=True)
+        })
+        
+        print(f"DEBUG: Successfully saved to Firestore")
         
         return jsonify({'success': True})
     except Exception as e:
+        print(f"DEBUG: Error saving progress: {str(e)}")
         return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/api/load_progress', methods=['GET'])
@@ -89,12 +99,21 @@ def load_progress():
         
         if user_doc.exists:
             data = user_doc.to_dict()
+            progress_data = data.get('progress', {})
+            theme_data = data.get('theme', '#111827')
+            
+            print(f"DEBUG: Loading progress for user {user_id}")
+            print(f"DEBUG: Raw document data: {data}")
+            print(f"DEBUG: Progress data to return: {progress_data}")
+            print(f"DEBUG: Theme data to return: {theme_data}")
+            
             return jsonify({
                 'success': True,
-                'progress': data.get('progress', {}),
-                'theme': data.get('theme', '#111827')
+                'progress': progress_data,
+                'theme': theme_data
             })
         else:
+            print(f"DEBUG: No document found for user {user_id}, returning empty data")
             # Return empty progress for new users
             return jsonify({
                 'success': True,
@@ -102,6 +121,7 @@ def load_progress():
                 'theme': '#111827'
             })
     except Exception as e:
+        print(f"DEBUG: Error loading progress: {str(e)}")
         return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/favicon.ico')
